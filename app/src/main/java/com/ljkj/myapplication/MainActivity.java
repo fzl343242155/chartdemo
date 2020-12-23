@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onScroll(float position) {
                 Log.e(TAG, "onScroll: " + position);
-                recyclerView.scrollBy((int)position, 0);
+                recyclerView.scrollBy(~(int)position, 0);
             }
         });
 
