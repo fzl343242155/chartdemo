@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     //x轴坐标对应的数据
     private List<String> xValue = new ArrayList<>();
+
+    private List<String> rvValue = new ArrayList<>();
     //y轴坐标对应的数据
     private List<Integer> yValue = new ArrayList<>();
     //折线对应的数据
@@ -50,7 +52,11 @@ public class MainActivity extends AppCompatActivity {
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        ChartAdapter chartAdapter = new ChartAdapter(xValue);
+        for (int i = 0; i < 23; i++) {
+            rvValue.add(i + "");
+        }
+
+        ChartAdapter chartAdapter = new ChartAdapter(rvValue);
         recyclerView.setAdapter(chartAdapter);
 
         chartView.setScrollListener(new OnScrollListener() {
