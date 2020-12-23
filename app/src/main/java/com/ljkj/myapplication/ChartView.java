@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
@@ -13,6 +14,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -75,6 +77,7 @@ public class ChartView extends View {
     private Rect xValueRect;
     //速度检测器
     private VelocityTracker velocityTracker;
+    private Paint painty;
 
     public ChartView(Context context) {
         this(context, null);
@@ -302,10 +305,10 @@ public class ChartView extends View {
         linePaint.setColor(linecolor);
         //绘制折线
         Path path = new Path();
-        float x = xInit + interval * 0;
-        float y = yOri - yOri * (1 - 0.1f) * value.get(xValue.get(0)) / yValue.get(yValue.size() - 1);
+        float x = 0;
+        float y = yOri - yOri * (1 - 0.1f) * value.get(xValue.get(1)) / yValue.get(yValue.size() - 1);
         path.moveTo(x, y);
-        for (int i = 1; i < xValue.size(); i++) {
+        for (int i = 0; i < xValue.size(); i++) {
             x = xInit + interval * i;
             y = yOri - yOri * (1 - 0.1f) * value.get(xValue.get(i)) / yValue.get(yValue.size() - 1);
             path.lineTo(x, y);
@@ -353,6 +356,15 @@ public class ChartView extends View {
         path.lineTo(xLength - xylinewidth / 2, yOri + xylinewidth / 2);
         path.lineTo(xLength - dpToPx(12), yOri + xylinewidth / 2 + dpToPx(5));
         canvas.drawPath(path, xyPaint);
+
+
+        painty = new Paint();
+        painty.setAntiAlias(true);
+        painty.setStrokeWidth(xylinewidth);
+        painty.setStrokeCap(Paint.Cap.ROUND);
+        painty.setColor(xylinecolor);
+
+
         //绘制x轴刻度
         for (int i = 0; i < xValue.size(); i++) {
             float x = xInit + interval * i;
@@ -365,8 +377,12 @@ public class ChartView extends View {
                 if (i == selectIndex - 1) {
                     xyTextPaint.setColor(linecolor);
                     canvas.drawText(text, 0, text.length(), x - rect.width() / 2, yOri + xylinewidth + dpToPx(2) + rect.height(), xyTextPaint);
+                    painty.setPathEffect(new DashPathEffect(new float[]{dpToPx(6), dpToPx(6)}, 0));
+                    canvas.drawLine(x, 0, x, yOri, painty);
                 } else {
                     canvas.drawText(text, 0, text.length(), x - rect.width() / 2, yOri + xylinewidth + dpToPx(2) + rect.height(), xyTextPaint);
+                    painty.setPathEffect(new DashPathEffect(new float[]{dpToPx(6), dpToPx(6)}, 0));
+                    canvas.drawLine(x, 0, x, yOri, painty);
                 }
             }
         }
@@ -394,6 +410,10 @@ public class ChartView extends View {
                         xInit = maxXInit;
                     } else {
                         xInit = xInit + dis;
+                    }
+
+                    if(mOnScrollListener!=null){
+                        mOnScrollListener.onScroll(xInit);
                     }
                     invalidate();
                 }
@@ -549,6 +569,12 @@ public class ChartView extends View {
     public void setSelectIndex(int selectIndex) {
         this.selectIndex = selectIndex;
         invalidate();
+    }
+
+    private OnScrollListener mOnScrollListener;
+
+    public void setScrollListener(OnScrollListener onScrollListener){
+        mOnScrollListener = onScrollListener;
     }
 
     public void setxValue(List<String> xValue) {
