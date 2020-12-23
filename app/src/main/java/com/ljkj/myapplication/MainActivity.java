@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onScroll(float position) {
                 Log.e(TAG, "onScroll: " + position);
-                recyclerView.scrollTo(0, (int)position);
+                recyclerView.scrollBy((int)position, 0);
             }
         });
 
