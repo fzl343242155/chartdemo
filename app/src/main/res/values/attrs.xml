@@ -26,4 +26,27 @@
         <attr name="bgcolor" />
         <attr name="isScroll" />
     </declare-styleable>
+
+
+    <declare-styleable name="BrokenLineView">
+        <attr name="linePaintColor" format="color" />
+        <attr name="textPaintColor" format="color" />
+        <attr name="textPaintSize" format="dimension" />
+        <attr name="circlePaintColor" format="color" />
+        <attr name="circleRadius" format="dimension" />
+        <attr name="textVerticesPaintColor" format="color" />
+        <attr name="textVerticesPaintSize" format="dimension" />
+        <attr name="brokenLinePaintColor" format="color" />
+        <attr name="lineWidth" format="dimension" />
+    </declare-styleable>
+
+
+    <declare-styleable name="HorizontalLineView">
+<!--        <attr name="linecolor" format="color"/>-->
+        <attr name="textsizedefault"  format="dimension"/>
+        <attr name="textsizeselected"  format="dimension"/>
+        <attr name="textcolorselected" format="color"/>
+        <attr name="textcolordefault" format="color"/>
+        <attr name="bg" format="color"/>
+    </declare-styleable>
 </resources>

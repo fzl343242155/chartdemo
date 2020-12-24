@@ -42,7 +42,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rl_content"
             android:layout_width="match_parent"
-            android:layout_marginLeft="60dp"
+            android:layout_marginLeft="53dp"
             android:layout_marginRight="30dp"
             android:layout_height="match_parent" />
     </RelativeLayout>

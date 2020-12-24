@@ -188,7 +188,8 @@ public class ChartView extends View {
                     xValueRect = rect;
             }
             yOri = (int) (height - dp2 - textXHeight - dp3 - xylinewidth);//dp3是x轴文本距离底边，dp2是x轴文本距离x轴的距离
-            xInit = interval + xOri;
+            xInit = xOri;
+//            xInit = interval + xOri;
             minXInit = width - (width - xOri) * 0.1f - interval * (xValue.size() - 1);//减去0.1f是因为最后一个X周刻度距离右边的长度为X轴可见长度的10%
             maxXInit = xInit;
         }
@@ -220,6 +221,7 @@ public class ChartView extends View {
         linePaint.setStyle(Paint.Style.FILL);
         linePaint.setColor(bgcolor);
         linePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+//        RectF rectF = new RectF(0, 0, xOri, height);
         RectF rectF = new RectF(0, 0, xOri, height);
         canvas.drawRect(rectF, linePaint);
         linePaint.setXfermode(null);
@@ -247,7 +249,7 @@ public class ChartView extends View {
                 canvas.drawCircle(x, y, dp7, linePaint);
                 linePaint.setColor(0xff81dddb);
                 canvas.drawCircle(x, y, dp4, linePaint);
-                drawFloatTextBox(canvas, x, y - dp7, value.get(xValue.get(i)));
+//                drawFloatTextBox(canvas, x, y - dp7, value.get(xValue.get(i)));
             }
             //绘制普通的节点
             linePaint.setStyle(Paint.Style.FILL);
@@ -260,40 +262,40 @@ public class ChartView extends View {
         }
     }
 
-    /**
-     * 绘制显示Y值的浮动框
-     *
-     * @param canvas
-     * @param x
-     * @param y
-     * @param text
-     */
-    private void drawFloatTextBox(Canvas canvas, float x, float y, int text) {
-        int dp6 = dpToPx(6);
-        int dp18 = dpToPx(18);
-        //p1
-        Path path = new Path();
-        path.moveTo(x, y);
-        //p2
-        path.lineTo(x - dp6, y - dp6);
-        //p3
-        path.lineTo(x - dp18, y - dp6);
-        //p4
-        path.lineTo(x - dp18, y - dp6 - dp18);
-        //p5
-        path.lineTo(x + dp18, y - dp6 - dp18);
-        //p6
-        path.lineTo(x + dp18, y - dp6);
-        //p7
-        path.lineTo(x + dp6, y - dp6);
-        //p1
-        path.lineTo(x, y);
-        canvas.drawPath(path, linePaint);
-        linePaint.setColor(Color.WHITE);
-        linePaint.setTextSize(spToPx(14));
-        Rect rect = getTextBounds(text + "", linePaint);
-        canvas.drawText(text + "", x - rect.width() / 2, y - dp6 - (dp18 - rect.height()) / 2, linePaint);
-    }
+//    /**
+//     * 绘制显示Y值的浮动框
+//     *
+//     * @param canvas
+//     * @param x
+//     * @param y
+//     * @param text
+//     */
+//    private void drawFloatTextBox(Canvas canvas, float x, float y, int text) {
+//        int dp6 = dpToPx(6);
+//        int dp18 = dpToPx(18);
+//        //p1
+//        Path path = new Path();
+//        path.moveTo(x, y);
+//        //p2
+//        path.lineTo(x - dp6, y - dp6);
+//        //p3
+//        path.lineTo(x - dp18, y - dp6);
+//        //p4
+//        path.lineTo(x - dp18, y - dp6 - dp18);
+//        //p5
+//        path.lineTo(x + dp18, y - dp6 - dp18);
+//        //p6
+//        path.lineTo(x + dp18, y - dp6);
+//        //p7
+//        path.lineTo(x + dp6, y - dp6);
+//        //p1
+//        path.lineTo(x, y);
+//        canvas.drawPath(path, linePaint);
+//        linePaint.setColor(Color.WHITE);
+//        linePaint.setTextSize(spToPx(14));
+//        Rect rect = getTextBounds(text + "", linePaint);
+//        canvas.drawText(text + "", x - rect.width() / 2, y - dp6 - (dp18 - rect.height()) / 2, linePaint);
+//    }
 
     /**
      * 绘制折线
@@ -412,7 +414,7 @@ public class ChartView extends View {
                         xInit = xInit + dis;
                     }
 
-                    if(mOnScrollListener!=null){
+                    if (mOnScrollListener != null) {
                         mOnScrollListener.onScroll(xInit);
                     }
                     invalidate();
@@ -573,7 +575,7 @@ public class ChartView extends View {
 
     private OnScrollListener mOnScrollListener;
 
-    public void setScrollListener(OnScrollListener onScrollListener){
+    public void setScrollListener(OnScrollListener onScrollListener) {
         mOnScrollListener = onScrollListener;
     }
 

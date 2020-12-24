@@ -35,13 +35,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         hideStatusNavigationBar(this);
         setContentView(R.layout.activity_main);
-        for (int i = 0; i < 23; i++) {
-            xValue.add((i + 1) + "");
-            value.put((i + 1) + "", (int) (Math.random() * 181 + 60));//60--240
+        for (int i = 0; i < 24; i++) {
+            xValue.add(i + "");
+            value.put(i + "", (int) (Math.random() * 121 + 60));//60--240
         }
 
-        for (int i = 0; i < 6; i++) {
-            yValue.add(i * 60);
+        for (int i = 0; i < 10; i++) {
+            yValue.add(i * 20);
         }
 
         chartView = (ChartView) findViewById(R.id.chartview);
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        for (int i = 0; i < 23; i++) {
+        for (int i = 0; i < 24; i++) {
             rvValue.add(i + "");
         }
 
@@ -63,14 +63,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onScroll(float position) {
-                Log.e(TAG, "onScroll: " + position);
-                recyclerView.scrollBy(~(int)position, 0);
+                recyclerView.scrollBy((~(int)position)/20, 0);
             }
         });
-
-
     }
-
 
     public static void hideStatusNavigationBar(Activity activity) {
         if (Build.VERSION.SDK_INT < 16) {
