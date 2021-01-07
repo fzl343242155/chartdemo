@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="51dp"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:gravity="center"
+        android:inputType="number"
+        android:textColor="#FF333333"
+        android:textSize="13sp" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#FF000000" />
+
+</LinearLayout>
